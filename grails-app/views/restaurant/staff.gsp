@@ -53,9 +53,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbars-rs-food">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
-                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><g:link class="nav-link" controller="restaurant" action="index">Home</g:link></li>
+                    <li class="nav-item"><g:link class="nav-link" controller="restaurant" action="menu">Menu</g:link></li>
+                    <li class="nav-item active"><g:link class="nav-link" controller="restaurant" action="about">About</g:link></li>
                     <li class="nav-item active dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown-a">

@@ -45,7 +45,7 @@
 <header class="top-navbar">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <g:link controller="restaurant" action="index" class="navbar-brand">
+            <g:link class="navbar-brand" controller="restaurant" action="index">
                 <asset:image src="logo.png" alt="" />
             </g:link>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-rs-food" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,25 +53,25 @@
             </button>
             <div class="collapse navbar-collapse" id="navbars-rs-food">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><g:link controller="restaurant" action="index" class="nav-link">Home</g:link></li>
-                    <li class="nav-item"><g:link controller="restaurant" action="menu" class="nav-link">Menu</g:link></li>
-                    <li class="nav-item active"><g:link controller="restaurant" action="about" class="nav-link">About</g:link></li>
+                    <li class="nav-item"><g:link class="nav-link" controller="restaurant" action="index">Home</g:link></li>
+                    <li class="nav-item"><g:link class="nav-link" controller="restaurant" action="menu">Menu</g:link></li>
+                    <li class="nav-item active"><g:link class="nav-link" controller="restaurant" action="about">About</g:link></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown-a">
-                            <g:link controller="restaurant" action="reservation" class="dropdown-item" href="reservation.html">Reservation</g:link>
-                            <g:link controller="restaurant" action="staff" class="dropdown-item" href="stuff.html">Stuff</g:link>
-                            <g:link controller="restaurant" action="gallery" class="dropdown-item" href="gallery.html">Gallery</g:link>
+                            <g:link class="dropdown-item" controller="restaurant" action="reservation">Reservation</g:link>
+                            <g:link class="dropdown-item" controller="restaurant" action="staff">Stuff</g:link>
+                            <g:link class="dropdown-item" controller="restaurant" action="gallery">Gallery</g:link>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown-b" data-toggle="dropdown">Blog</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown-a">
-                            <g:link controller="restaurant" action="blog" class="dropdown-item">blog</g:link>
-                            <g:link controller="restaurant" action="blogDetails" class="dropdown-item">blog Single</g:link>
+                            <g:link class="dropdown-item" controller="restaurant" action="blog">blog</g:link>
+                            <g:link class="dropdown-item" controller="restaurant" action="blogDetails">blog Single</g:link>
                         </div>
                     </li>
-                    <li class="nav-item"><g:link controller="restaurant" action="contact" class="nav-link">Contact</g:link></li>
+                    <li class="nav-item"><g:link class="nav-link" controller="restaurant" action="contact">Contact</g:link></li>
                 </ul>
             </div>
         </div>
