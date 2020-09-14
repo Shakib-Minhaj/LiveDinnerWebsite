@@ -60,13 +60,13 @@
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown-a">
                             <g:link class="dropdown-item" controller="restaurant" action="reservation">Reservation</g:link>
-                            <g:link class="dropdown-item" controller="restaurant" action="staff">Stuff</g:link>
+                            <g:link class="dropdown-item" controller="restaurant" action="staff">Staff</g:link>
                             <g:link class="dropdown-item" controller="restaurant" action="gallery">Gallery</g:link>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown-b" data-toggle="dropdown">Blog</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown-a">
+                        <div class="dropdown-menu" aria-labelledby="dropdown-b">
                             <g:link class="dropdown-item" controller="restaurant" action="blog">blog</g:link>
                             <g:link class="dropdown-item" controller="restaurant" action="blogDetails">blog Single</g:link>
                         </div>

@@ -36,6 +36,25 @@ management:
 
 ---
 grails:
+    mail:
+        host: "smtp.gmail.com"
+        port: "465"
+        username: "restaurant_email@something.com"
+        password: "passwordOfResaturantEmail"
+        props:
+            mail.smtp.auth: "true"
+            mail.smtp.socketFactory.port: "465"
+            mail.smtp.socketFactory.class: "javax.net.ssl.SSLSocketFactory"
+            mail.smtp.socketFactory.fallback: "false"
+
+---
+grails:
+  controllers:
+    upload:
+      maxFileSize: 26214400
+      maxRequestSize: 26214400
+---
+grails:
     mime:
         disable:
             accept:
@@ -107,8 +126,8 @@ dataSource:
 environments:
     development:
         dataSource:
-            dbCreate: create-drop
-            url: jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+            dbCreate: update
+            url: jdbc:h2:./restaurantDB;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
     test:
         dataSource:
             dbCreate: update

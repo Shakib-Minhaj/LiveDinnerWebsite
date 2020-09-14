@@ -42,6 +42,11 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -64,13 +69,13 @@
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown-a">
                             <g:link class="dropdown-item" controller="restaurant" action="reservation">Reservation</g:link>
-                            <g:link class="dropdown-item" controller="restaurant" action="staff">Stuff</g:link>
+                            <g:link class="dropdown-item" controller="restaurant" action="staff">Staff</g:link>
                             <g:link class="dropdown-item" controller="restaurant" action="gallery">Gallery</g:link>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown-b" data-toggle="dropdown">Blog</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown-a">
+                        <div class="dropdown-menu" aria-labelledby="dropdown-b">
                             <g:link class="dropdown-item" controller="restaurant" action="blog">blog</g:link>
                             <g:link class="dropdown-item" controller="restaurant" action="blogDetails">blog Single</g:link>
                         </div>
@@ -115,19 +120,19 @@
                                 <h3>Book a table</h3>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input id="input_date" class="datepicker picker__input form-control" name="date" type="text" value="" equired data-error="Please enter Date">
+                                        <input id="input_date" class="datepicker picker__input form-control" name="date" type="text" value="" required data-error="Please Select Reservation Date" placeholder="Select Reservation Date..">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input id="input_time" class="time form-control picker__input" required data-error="Please enter time">
+                                        <input id="input_time" class="time form-control picker__input" required data-error="Please Select Reservation Time" placeholder="Select Reservation Time..">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <select class="custom-select d-block form-control" id="person" required data-error="Please select Person">
+                                        <select class="custom-select d-block form-control" id="person" required data-error="Please Select Person Number">
                                             <option disabled selected>Select Person*</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
@@ -157,14 +162,14 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="text" placeholder="Your Numbar" id="phone" class="form-control" name="phone" required data-error="Please enter your Numbar">
+                                        <input type="text" placeholder="Your Number" id="phone" class="form-control" name="phone" required data-error="Please enter your number">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="submit-button text-center">
-                                    <button class="btn btn-common" id="submit" type="submit">Book Table</button>
+                                    <button class="btn btn-common" id="submit" type="submit" onclick="reservationAjax()">Book Table</button>
                                     <div id="msgSubmit" class="h3 text-center hidden"></div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -342,5 +347,78 @@
 <asset:javascript src="form-validator.min.js"></asset:javascript>
 <asset:javascript src="contact-form-script.js"></asset:javascript>
 <asset:javascript src="custom.js"></asset:javascript>
+
+<script>
+    function reservationAjax() {
+        $(document).ready(function() {
+            var name = $("#name").val();
+            var email = $("#email").val();
+            var phone = $("#phone").val();
+            var personNo = $("#person").val();
+            var inpDate = $("#input_date").val();
+            var inpTime = $("#input_time").val();
+
+            //Check if name field is empty
+            if (name == "") {
+                alert('Enter your name');
+                return false;
+            }
+
+            //Check if email field is empty
+            if (email == "") {
+                alert('Enter your email');
+                return false;
+            }
+
+            //Check if phone field is empty
+            if (phone == "") {
+                alert('Enter your phone number');
+                return false;
+            }
+
+            //Check if personNo field is empty
+            if (personNo == "") {
+                alert('Enter the number of persons');
+                return false;
+            }
+
+            //Check if inpDate field is empty
+            if (inpDate == "") {
+                alert('Select reservation date');
+                return false;
+            }
+
+            //Check if inpTime field is empty
+            if (inpTime == "") {
+                alert('Select reservation time.');
+                return false;
+            }
+
+            var conv_to_num = Number(phone);  //Convert phone no string to number
+
+            //Check if the age is an integer
+            if (isNaN(conv_to_num) || !Number.isInteger(conv_to_num)) {
+                alert("Age should be integer");
+                return false;
+            }
+
+            var URL="${createLink(controller:'restaurant', action:'reservationFunctionality')}"
+
+            $.ajax({
+                url: URL,
+                type: "POST",
+                datatype: "html",
+                data:{name:name, email:email, phone:phone, noOfPerson:personNo, resDate:inpDate, resTime:inpTime},
+                success:function(data)
+                {
+                    alert(data);
+                }
+            })
+            
+
+        });
+    }
+</script>
+
 </body>
 </html>

@@ -60,13 +60,13 @@
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown-a">
                             <g:link class="dropdown-item" controller="restaurant" action="reservation">Reservation</g:link>
-                            <g:link class="dropdown-item" controller="restaurant" action="staff">Stuff</g:link>
+                            <g:link class="dropdown-item" controller="restaurant" action="staff">Staff</g:link>
                             <g:link class="dropdown-item" controller="restaurant" action="gallery">Gallery</g:link>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown-b" data-toggle="dropdown">Blog</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown-a">
+                        <div class="dropdown-menu" aria-labelledby="dropdown-b">
                             <g:link class="dropdown-item" controller="restaurant" action="blog">blog</g:link>
                             <g:link class="dropdown-item" controller="restaurant" action="blogDetails">blog Single</g:link>
                         </div>
@@ -119,11 +119,11 @@
                         <div class="row">
                             <div class="col-lg-4 col-md-6 special-grid drinks">
                                 <div class="gallery-single fix">
-                                    <asset:image src="img-01.jpg" class="img-fluid" alt="Image"/>
+                                    <img src="${imgMap.bis}/>
                                     <div class="why-text">
-                                        <h4>Special Drinks 1</h4>
-                                        <p>Sed id magna vitae eros sagittis euismod.</p>
-                                        <h5> $7.79</h5>
+                                        <h4>${imgMap.name}</h4>
+                                        <p>${imgMap.details}</p>
+                                        <h5> $${imgMap.price}</h5>
                                     </div>
                                 </div>
                             </div>
