@@ -104,36 +104,13 @@
         </div>
         <div class="tz-gallery">
             <div class="row">
-                <div class="col-sm-12 col-md-4 col-lg-4">
-                    <a class="lightbox" href="${resource(dir: 'images', file: 'gallery-img-01.jpg')}">
-                        <asset:image class="img-fluid" src="gallery-img-01.jpg" alt="Gallery Images"/>
-                    </a>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-4">
-                    <a class="lightbox" href="${resource(dir: 'images', file: 'gallery-img-02.jpg')}">
-                        <asset:image class="img-fluid" src="gallery-img-02.jpg" alt="Gallery Images"/>
-                    </a>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-4">
-                    <a class="lightbox" href="${resource(dir: 'images', file: 'gallery-img-03.jpg')}">
-                        <asset:image class="img-fluid" src="gallery-img-03.jpg" alt="Gallery Images"/>
-                    </a>
-                </div>
-                <div class="col-sm-12 col-md-4 col-lg-4">
-                    <a class="lightbox" href="${resource(dir: 'images', file: 'gallery-img-04.jpg')}">
-                        <asset:image class="img-fluid" src="gallery-img-04.jpg" alt="Gallery Images"/>
-                    </a>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-4">
-                    <a class="lightbox" ref="${resource(dir: 'images', file: 'gallery-img-05.jpg')}">
-                        <asset:image class="img-fluid" src="gallery-img-05.jpg" alt="Gallery Images"/>
-                    </a>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-4">
-                    <a class="lightbox" ref="${resource(dir: 'images', file: 'gallery-img-06.jpg')}">
-                        <asset:image class="img-fluid" src="gallery-img-06.jpg" alt="Gallery Images"/>
-                    </a>
-                </div>
+                <g:each in = "${galleryImg}" status = "i" var = "val">
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                        <a class="lightbox" href="${createLink(action: 'getGalleryImg', controller: 'restaurant', id:"${val.id}")}">
+                            <img class="img-fluid" src="${createLink(action: 'getGalleryImg', controller: 'restaurant', id:"${val.id}")}" alt="Images" />
+                        </a>
+                    </div>
+                </g:each>
             </div>
         </div>
     </div>

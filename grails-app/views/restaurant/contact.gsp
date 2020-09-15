@@ -123,11 +123,8 @@
                             <div class="form-group">
                                 <select class="custom-select d-block form-control" id="guest" required data-error="Please Select Person">
                                     <option disabled selected>Please Select Person*</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
+                                    <option value="1">Manager</option>
+                                    <option value="2">Admin</option>
                                 </select>
                                 <div class="help-block with-errors"></div>
                             </div>
@@ -138,7 +135,7 @@
                                 <div class="help-block with-errors"></div>
                             </div>
                             <div class="submit-button text-center">
-                                <button class="btn btn-common" id="submit" type="submit">Send Message</button>
+                                <button class="btn btn-common" id="submit" type="submit" onclick="messageAjax()">Send Message</button>
                                 <div id="msgSubmit" class="h3 text-center hidden"></div>
                                 <div class="clearfix"></div>
                             </div>
@@ -253,10 +250,47 @@
 <asset:javascript src="images-loded.min.js"></asset:javascript>
 <asset:javascript src="isotope.min.js"></asset:javascript>
 <asset:javascript src="baguetteBox.min.js"></asset:javascript>
+<asset:javascript src="jquery.mapify.js"></asset:javascript>
 <asset:javascript src="form-validator.min.js"></asset:javascript>
 <asset:javascript src="contact-form-script.js"></asset:javascript>
 <asset:javascript src="custom.js"></asset:javascript>
 <script>
+    function messageAjax() {
+        $(document).ready(function() {
+            var name = $('#name').val();
+            var email = $('#email').val();
+            var person = $('#guest').val();
+            var message = $('#message').val();
+
+            if(name == "") {
+                alert('Enter your name.');
+                return false;
+            }
+
+            if(email == "") {
+                alert('Enter your email.');
+                return false;
+            }
+
+            if(message == "") {
+                alert('Your message is empty.');
+                return false;
+            }
+
+            var URL="${createLink(controller:'restaurant',action:'messageContact')}"
+            $.ajax({
+                url: URL,
+                type: "POST",
+                datatype: "html",
+                data:{name:name, email:email, person:person, message:message},
+                success:function(data)
+                {
+                    alert(data);
+                }
+            });
+        });
+    }
+
     $('.map-full').mapify({
         points: [
             {

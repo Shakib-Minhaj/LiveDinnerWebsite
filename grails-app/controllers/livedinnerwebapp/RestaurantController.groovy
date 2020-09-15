@@ -3,7 +3,11 @@ package livedinnerwebapp
 class RestaurantController {
 
     def index() {
-
+        def drinkItems = Drinks.list()      //Fetching all drink items from DB
+        def lunchItems = Lunch.list()
+        def dinnerItems = Dinner.list()
+        def galleryImg = Gallery.list()
+        [drinkItems:drinkItems, lunchItems:lunchItems, dinnerItems:dinnerItems, galleryImg:galleryImg]
     }
 
     def about() {
@@ -11,6 +15,10 @@ class RestaurantController {
     }
 
     def blog() {
+
+    }
+
+    def blogPost() {
 
     }
 
@@ -22,40 +30,95 @@ class RestaurantController {
 
     }
 
-    def gallery() {
+    def messageContact() {
+        String person = params.person
+        String email = params.email
+        String name = params.name
+        String message = params.message
+        String txt = """Name: ${name}
+        Email: ${email}
+        Message Body: ${message}"""
 
+        if(person == "Admin") {
+            //to send these to admin page
+            render "Your message is sent to the Admin."
+        }
+        else if(person == "Manager") {
+            sendMail {
+                to email
+                subject "Mr. ${name} sent a message"
+                text txt
+            }
+            render "Your message is sent to the Manager."
+        }
+    }
+
+    def gallery() {
+        def galleryImg = Gallery.list()
+        [galleryImg:galleryImg]
+    }
+
+    def getGalleryImg(Long id) {
+        def galleryItem = Gallery.get(id);
+
+        if (galleryItem != null) {
+            response.contentType = galleryItem.imageContentType == null ? "image/jpeg" : galleryItem.imageContentType;
+            response.contentLength = galleryItem.image == null ? 0 : galleryItem.image.size();
+            response.outputStream << galleryItem.image;
+        } else {
+            response.contentType = "image/jpeg";
+            response.contentLength = 0;
+            response.outputStream << null;
+        }
     }
 
     def menu() {
-        def fetched_value = Drinks.list()  //Fetching all from database
-        //render(view:'postOnly', model: [fetched_value:fetched_value])
-        def imgMap = [:]
-        def imgList = []
-        Integer i = 0
-        for(item in fetched_value) {
-            //imgMap.put("image", null)
-            ByteArrayInputStream bis = new ByteArrayInputStream(item.image[i])
-            imgMap.put("bis", bis)
-            imgMap.put("name", item.name)
-            imgMap.put("details", item.details)
-            imgMap.put("price", item.price)
-            imgList[i] = imgMap
+        def drinkItems = Drinks.list()      //Fetching all drink items from DB
+        def lunchItems = Lunch.list()
+        def dinnerItems = Dinner.list()
+        [drinkItems:drinkItems, lunchItems:lunchItems, dinnerItems:dinnerItems]
+    }
 
-            i++
-        //def user = User.get(id);
-        //if (user != null) {
-          //  response.contentType = user.imageContentType == null ? "image/jpeg" : user.imageContentType;
-           // response.contentLength = user.image == null ? 0 : user.image.size();
-           // response.outputStream << user.image;
-        //} else {
-          //  response.contentType = "image/jpeg";
-            //response.contentLength = 0;
-            //response.outputStream << null;
+    def getDrinkImg(Long id) {
+        def drinkItem = Drinks.get(id);
+
+        if (drinkItem != null) {
+            response.contentType = drinkItem.imageContentType == null ? "image/jpeg" : drinkItem.imageContentType;
+            response.contentLength = drinkItem.image == null ? 0 : drinkItem.image.size();
+            response.outputStream << drinkItem.image;
+        } else {
+            response.contentType = "image/jpeg";
+            response.contentLength = 0;
+            response.outputStream << null;
         }
+    }
 
-        render(view:'menu', model: [imgMap:imgMap])
+    def getLunchImg(Long id) {
+        def lunchItem = Lunch.get(id);
 
-               // <img src="${createLink(action: 'getImage', controller: 'user', id: 1)}"/>
+        if (lunchItem != null) {
+            response.contentType = lunchItem.imageContentType == null ? "image/jpeg" : lunchItem.imageContentType;
+            response.contentLength = lunchItem.image == null ? 0 : lunchItem.image.size();
+            response.outputStream << lunchItem.image;
+        } else {
+            response.contentType = "image/jpeg";
+            response.contentLength = 0;
+            response.outputStream << null;
+        }
+    }
+
+    def getDinnerImg(Long id) {
+        def DinnerItem = Dinner.get(id);
+
+        if (DinnerItem != null) {
+            response.contentType = DinnerItem.imageContentType == null ? "image/jpeg" : DinnerItem.imageContentType;
+            response.contentLength = DinnerItem.image == null ? 0 : DinnerItem.image.size();
+            response.outputStream << DinnerItem.image;
+        } else {
+            response.contentType = "image/jpeg";
+            response.contentLength = 0;
+            response.outputStream << null;
+        }
     }
 
     def reservation() {
@@ -63,10 +126,33 @@ class RestaurantController {
     }
 
     def staff() {
+        def staff = Staff.list()
+        [staff:staff]
+    }
+
+    def addStaff() {
 
     }
 
+    def getStaffImg(Long id) {
+        def staff = Staff.get(id);
+
+        if (staff != null) {
+            response.contentType = staff.imageContentType == null ? "image/jpeg" : staff.imageContentType;
+            response.contentLength = staff.image == null ? 0 : staff.image.size();
+            response.outputStream << staff.image;
+        } else {
+            response.contentType = "image/jpeg";
+            response.contentLength = 0;
+            response.outputStream << null;
+        }
+    }
+
     def addProduct() {
+
+    }
+
+    def addGallery() {
 
     }
 
@@ -99,7 +185,7 @@ class RestaurantController {
 
     def addItem() {                         //Function for adding Menu item to database
         def imageMap = [:]
-        byte[] photo = request.getFile("userImage").bytes
+        byte[] photo = request.getFile("userImage").bytes   //converting photo into bytes
         String type = request.getFile("userImage").contentType
 
         if (type == null || !(type =~ "image/")) {
@@ -118,12 +204,66 @@ class RestaurantController {
         imageMap.put("details", details)
         imageMap.put("price", price)
 
-        def newUser = new Drinks(imageMap)
+        def newUser = new Dinner(imageMap)
         if(!newUser.validate()) {
             render "Problem saving item"
         }
         else {
-            Drinks create_user = new Drinks(imageMap)
+            Dinner create_user = new Dinner(imageMap)
+            create_user.save()
+            render "Item saved successfully"
+        }
+    }
+
+    def addToGallery() {
+        def imgMap = [:]
+        byte[] photo = request.getFile("userImg").bytes     //converting photo into bytes
+        String type = request.getFile("userImg").contentType
+
+        if (type == null || !(type =~ "image/")) {
+            imgMap.put("image", null)
+            imgMap.put("imageContentType", null)
+        } else {
+            imgMap.put("image", photo)
+            imgMap.put("imageContentType", type)
+        }
+
+
+        def newUser = new Gallery(imgMap)
+        if(!newUser.validate()) {
+            render "Problem saving item"
+        }
+        else {
+            Gallery create_user = new Gallery(imgMap)
+            create_user.save()
+            render "Item saved successfully"
+        }
+    }
+
+    def addToStaff() {
+        def imgMap = [:]
+        byte[] photo = request.getFile("staffImage").bytes     //converting photo into bytes
+        String type = request.getFile("staffImage").contentType
+
+        if (type == null || !(type =~ "image/")) {
+            imgMap.put("image", null)
+            imgMap.put("imageContentType", null)
+        } else {
+            imgMap.put("image", photo)
+            imgMap.put("imageContentType", type)
+        }
+
+        String name = params.name
+        String designation = params.designation
+        imgMap.put("name", name)
+        imgMap.put("designation", designation)
+
+        def newUser = new Staff(imgMap)
+        if(!newUser.validate()) {
+            render "Problem saving item"
+        }
+        else {
+            Staff create_user = new Staff(imgMap)
             create_user.save()
             render "Item saved successfully"
         }
